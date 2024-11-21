@@ -2941,11 +2941,10 @@ bool _tigrIsWindowVisible(id window) {
 static bool tigrOSXInited = false;
 static id autoreleasePool = NULL;
 
-//#ifdef DEBUG
-#if 0
+#ifdef DEBUG
 static void _showPools(const char* context) {
     fprintf(stderr, "NSAutoreleasePool@%s:\n", context);
-    objc_msgSend(class("NSAutoreleasePool"), sel("showPools"));
+    objc_msgSend_id(class("NSAutoreleasePool"), sel("showPools"));
 }
 #define showPools(x) _showPools((x))
 #else
