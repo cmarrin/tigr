@@ -53,7 +53,7 @@ void tigrPosition(Tigr* bmp, int scale, int windowW, int windowH, int out[4]);
 
 #ifdef TIGR_GAPI_GL
 #if __MACOS__
-#define GL_SILENCE_DEPRECATION
+//#define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl3.h>
 #endif
 #ifdef _WIN32
@@ -1132,7 +1132,7 @@ int tigrSaveImage(const char* fileName, Tigr* bmp) {
 
     // Write back payload size.
     fseek(out, dataPos, SEEK_SET);
-    put32(&s, dataSize);
+    put32(&s, (unsigned int) dataSize);
 
     err = ferror(out);
     fclose(out);
@@ -2941,7 +2941,8 @@ bool _tigrIsWindowVisible(id window) {
 static bool tigrOSXInited = false;
 static id autoreleasePool = NULL;
 
-#ifdef DEBUG
+//#ifdef DEBUG
+#if 0
 static void _showPools(const char* context) {
     fprintf(stderr, "NSAutoreleasePool@%s:\n", context);
     objc_msgSend(class("NSAutoreleasePool"), sel("showPools"));
@@ -6328,7 +6329,7 @@ void* tigrReadFile(const char* fileName, int* length) {
     fclose(file);
 
     if (length)
-        *length = len;
+        *length = (int) len;
 
     return data;
 }
